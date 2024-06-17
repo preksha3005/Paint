@@ -1,13 +1,97 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.draw-area {
+  width: 1180px;
+  height: 540px;
+  border: 2px solid #808080;
+  position: relative;
+  background-color: white;
+  left: 3%;
+}
+.box h2 {
+  display: flex;
+  justify-content: center;
+}
+.menu {
+  width: 650px;
+  height: 50px;
+  display: flex;
+  justify-content: space-evenly;
+  border-radius: 5px;
+  align-items: center;
+  background-color: #a3a3a32d;
+  margin: auto;
+  margin-top: 10px;
+}
+canvas {
+  border: 2px solid black;
+  position: relative;
+  left: 1%;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+@media only screen and (max-width: 600px) {
+    .draw-area {
+      width: 116vw;
+      height: 100vh;
+      border: 2px solid #808080;
+      position: relative;
+      background-color: white;
+      left: -1%;
+    }
+    canvas {
+      border: 2px solid black;
+      position: relative;
+      left: 2%;
+      width: 110vw;
+      height: 90vh;
+    }
+    .menu {
+      width: 115vw;
+      height: 40px;
+      font-size: 12px;
+    }
+  }
+
+  @media only screen and (max-width: 900px) and (orientation: landscape) {
+    .draw-area {
+      width: 70vw;
+      height: 60vh;
+      border: 2px solid #808080;
+      position: relative;
+      background-color: white;
+      left: 15%;
+    }
+    canvas {
+      border: 2px solid black;
+      position: relative;
+      left: 2%;
+      width: 70vw;
+      height: 50vh;
+    }
+    .menu {
+      width: 70vw;
+      height: 30px;
+      font-size: 12px;
+    }
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .draw-area {
+      width: 90vw;
+      height: 70vh;
+      border: 2px solid #808080;
+      position: relative;
+      background-color: white;
+      left: 5%;
+    }
+    canvas {
+      border: 2px solid black;
+      position: relative;
+      left: 2.5%;
+      width: 85vw;
+      height: 63vh;
+    }
+    .menu {
+      width: 80vw;
+      height: 40px;
+      font-size: 16px;
+    }
+  }
