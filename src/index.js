@@ -65,7 +65,7 @@ const Page = () => {
   //   ctxref.current.closePath();
   //   setD(false);
   // }
-
+  let requestId = null;
   function start(e) {
     if (e.type === 'mousedown' || e.type === 'touchstart') {
       ctxref.current.beginPath();
@@ -74,6 +74,7 @@ const Page = () => {
       const y = e.type === 'mousedown' ? e.nativeEvent.offsetY : e.touches[0].clientY - rect.top;
       ctxref.current.moveTo(x, y);
       setD(true);
+      requestId = requestAnimationFrame(draw);
     }
   }
   
@@ -94,6 +95,7 @@ const Page = () => {
     if (e.type === 'mouseup' || e.type === 'touchend') {
       ctxref.current.closePath();
       setD(false);
+      cancelAnimationFrame(requestId);
     }
   }
   return (
