@@ -47,25 +47,55 @@ const Page = () => {
     ctxref.current = ctx;
   }, [lineC, lineO, lineW]);
 
+  // function start(e) {
+  //   ctxref.current.beginPath();
+  //   ctxref.current.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+  //   setD(true);
+  // }
+
+  // function draw(e) {
+  //   if (!isDrawing) {
+  //     return;
+  //   }
+  //   ctxref.current.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+  //   ctxref.current.stroke();
+  // }
+
+  // function end(e) {
+  //   ctxref.current.closePath();
+  //   setD(false);
+  // }
+
   function start(e) {
-    ctxref.current.beginPath();
-    ctxref.current.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
-    setD(true);
-  }
-
-  function draw(e) {
-    if (!isDrawing) {
-      return;
+    if (e.type === 'mousedown' || e.type === 'touchstart') {
+      ctxref.current.beginPath();
+      const rect = canvasRef.current.getBoundingClientRect();
+      const x = e.type === 'mousedown' ? e.nativeEvent.offsetX : e.touches[0].clientX - rect.left;
+      const y = e.type === 'mousedown' ? e.nativeEvent.offsetY : e.touches[0].clientY - rect.top;
+      ctxref.current.moveTo(x, y);
+      setD(true);
     }
-    ctxref.current.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
-    ctxref.current.stroke();
   }
-
+  
+  function draw(e) {
+    if (e.type === 'mousemove' || e.type === 'touchmove') {
+      if (!isDrawing) {
+        return;
+      }
+      const rect = canvasRef.current.getBoundingClientRect();
+      const x = e.type === 'mousemove' ? e.nativeEvent.offsetX : e.touches[0].clientX - rect.left;
+      const y = e.type === 'mousemove' ? e.nativeEvent.offsetY : e.touches[0].clientY - rect.top;
+      ctxref.current.lineTo(x, y);
+      ctxref.current.stroke();
+    }
+  }
+  
   function end(e) {
-    ctxref.current.closePath();
-    setD(false);
+    if (e.type === 'mouseup' || e.type === 'touchend') {
+      ctxref.current.closePath();
+      setD(false);
+    }
   }
-
   return (
     <div className="container">
       <div className="box">
@@ -77,6 +107,9 @@ const Page = () => {
             onMouseDown={start}
             onMouseMove={draw}
             onMouseUp={end}
+            onTouchStart={start}
+            onTouchMove={draw}
+            onTouchEnd={end}
             width={`1150px`}
             height={`460px`}
           ></canvas>
